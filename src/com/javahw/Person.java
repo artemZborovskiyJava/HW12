@@ -2,6 +2,7 @@ package com.javahw;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Person {
     private String surname;
@@ -40,11 +41,9 @@ public class Person {
     }
 
     public int getFullYears() {
-        int year = Integer.parseInt(this.dataOfBirth.substring(this.dataOfBirth.length() - 4));
-        int month = Integer.parseInt(this.dataOfBirth.substring(3, 5));
-        int day = Integer.parseInt(this.dataOfBirth.substring(0, 2));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate currentDate = LocalDate.now();
-        LocalDate dataOfBirth = LocalDate.of(year, month, day);
+        LocalDate dataOfBirth = LocalDate.parse(this.dataOfBirth, formatter);
         Period period = Period.between(dataOfBirth, currentDate);
         return period.getYears();
     }
