@@ -1,6 +1,7 @@
 package com.javahw;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class Person {
     private String surname;
@@ -39,9 +40,13 @@ public class Person {
     }
 
     public int getFullYears() {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int yearOfBirth = Integer.parseInt(this.dataOfBirth.substring(this.dataOfBirth.length() - 4));
-        return currentYear - yearOfBirth;
+        int year = Integer.parseInt(this.dataOfBirth.substring(this.dataOfBirth.length() - 4));
+        int month = Integer.parseInt(this.dataOfBirth.substring(3, 5));
+        int day = Integer.parseInt(this.dataOfBirth.substring(0, 2));
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dataOfBirth = LocalDate.of(year, month, day);
+        Period period = Period.between(dataOfBirth, currentDate);
+        return period.getYears();
     }
 
     @Override
